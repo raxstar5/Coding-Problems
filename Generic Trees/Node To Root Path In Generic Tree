@@ -1,0 +1,53 @@
+
+Problem Statement:
+1. You are given a partially written GenericTree class.
+2. You are required to complete the body of nodeToRootPath function. 
+The function is expected to return in form of linked list the path from element to root, if the element with data is found.
+
+Example
+
+Sample Input
+
+24
+10 20 50 -1 60 -1 -1 30 70 -1 80 110 -1 120 -1 -1 90 -1 -1 40 100 -1 -1 -1
+120
+
+Sample Output
+
+[120, 80, 30, 10]
+
+#include<bits/stdc++.h>
+#include<climits>
+
+using namespace std;
+
+class Node
+{
+public:
+  int data = 0;
+  vector<Node *> children;
+
+  Node(int data)
+  {
+    this->data = data;
+  }
+};
+
+vector<int> nodeToRootPath(Node *node, int data)
+{
+
+    if(node->data == data){
+        vector<int> arr;
+        arr.push_back(data);
+        return arr;
+    }
+
+    for(int i = 0; i < node->children.size(); i++){
+        vector<int> arr = nodeToRootPath(node->children[i], data);
+        if(arr.size() > 0){
+            arr.push_back(node->data);
+            return arr;
+        }
+    }
+    return {};
+}
