@@ -1,0 +1,36 @@
+
+Problem Statement
+1. You are given a partially written GenericTree class.
+2. You are required to complete the body of find function. 
+The function is expected to find the given data in the tree, if found it should return true or return false.
+
+
+#include<bits/stdc++.h>
+#include<climits>
+
+using namespace std;
+
+class Node
+{
+public:
+  int data = 0;
+  vector<Node *> children;
+
+  Node(int data)
+  {
+    this->data = data;
+  }
+};
+
+bool find(Node *node, int data)
+{
+Node* temp = node;
+  if(node->data == data){
+      return true;
+  }
+  for(int i = 0; i < temp->children.size(); i++){
+      bool ans = find(temp->children[i], data);
+      if(ans) return true;
+  }
+  return false;
+}
