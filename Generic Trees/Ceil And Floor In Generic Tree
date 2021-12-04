@@ -1,0 +1,36 @@
+Ceil And Floor In Generic Tree
+
+Easy
+
+1. You are given a partially written GenericTree class.
+2. You are required to find the ceil and floor value of a given element. Use the "travel and change" strategy explained in the earlier video.
+The static properties - ceil and floor have been declared for you. You can declare more if you want. 
+If the element is largest ceil will be largest integer value (32 bits), if element is smallest floor will be smallest integer value (32 bits).
+
+
+#include<bits/stdc++.h>
+#include<iostream>
+using namespace std;
+
+
+struct Node{
+    int data;
+    vector<Node*>children;
+};
+
+int c= INT_MAX;
+int flloor= INT_MIN;
+
+void cnf(Node *node, int data){
+    
+    if(node->data < data){
+        flloor = max(flloor, node->data);
+    }
+    else if(node->data > data){
+        c = min(c, node->data);
+    }
+
+    for(int i = 0; i < node->children.size(); i++){
+        cnf(node->children[i], data);
+    }
+}
