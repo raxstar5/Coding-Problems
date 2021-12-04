@@ -1,0 +1,39 @@
+Is Generic Tree Symmetric
+
+Easy
+
+PS:
+
+1. You are given a partially written GenericTree class.
+2. You are required to complete the body of IsSymmetric function. The function is expected to check if the tree is symmetric, if so return true otherwise return false. 
+For knowing symmetricity think of face and hand. Face is symmetric while palm is not. Also, we are check only smmetricity of shape and not content.
+
+class Node
+{
+public:
+  int data = 0;
+  vector<Node *> children;
+
+  Node(int data)
+  {
+    this->data = data;
+  }
+};
+
+bool isMirror(Node *n1, Node *n2){
+
+    if(n1->children.size() != n2->children.size()){
+        return false;
+    }
+    for(int i = 0; i < n1->children.size()/2; i++){
+      bool temp = isMirror(n1->children[i], n2->children[n2->children.size()-1-i]);
+      if(temp == false) return false;        
+    }
+    return true;
+}
+
+
+bool isSymmetric(Node *node)
+{
+    return isMirror(node,node);
+}
