@@ -1,0 +1,35 @@
+Node With Maximum Subtree Sum
+
+Medium
+
+1. You are given a partially written GenericTree class.
+2. You are required to find and print the node which has the subtree with largest sum.
+Also print the sum of the concerned subtree separated from node's value by an '@'.
+
+#include<bits/stdc++.h>
+#include<iostream>
+using namespace std;
+int c= INT_MAX;
+int flloor= INT_MIN;
+
+struct Node{
+    int data;
+    vector<Node*>children;
+};
+
+int msum = INT_MIN;
+int msumnode =INT_MIN;
+
+int subsumtree(Node *node)
+{
+    int tsum = 0;
+    for(int i = 0; i < node->children.size(); i++){
+        int temp_sum = subsumtree(node->children[i]);
+        tsum += temp_sum;
+    }
+    if(tsum + node->data > msum){
+        msum = tsum + node->data;
+        msumnode = node->data;
+    }
+    return tsum + node->data;
+}
