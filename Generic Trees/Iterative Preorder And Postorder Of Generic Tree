@@ -1,0 +1,49 @@
+Iterative Preorder And Postorder Of Generic Tree
+
+Medium
+
+1. You are given a partially written GenericTree class.
+2. You are require to complete the body of function IterativePreandPostOrder. 
+The function does not use recursion and prints preorder and postorder of the tree. 
+
+#include<bits/stdc++.h>
+#include<iostream>
+using namespace std;
+int c= INT_MAX;
+int flloor= INT_MIN;
+
+struct Node{
+    int data;
+    vector<Node*>children;
+};
+
+vector<int> pre;
+vector<int> post;
+void preandpost(Node *node)
+{
+    stack< pair<Node*, int> >st;
+    st.push( {node, -1} );
+    while(!st.empty()){
+        if(st.top().second == -1){
+            st.top().second = 0;
+            pre.push_back(st.top().first->data);            
+        }
+        else if( st.top().second == st.top().first->children.size()){
+            post.push_back(st.top().first->data);
+            st.pop(); 
+        }
+        else if( st.top().second < st.top().first->children.size() ){              
+            int x = st.top().second; 
+            st.top().second++;
+            st.push( {st.top().first->children[x], -1} ) ;                  
+                         
+        }
+    }
+    for(int i = 0; i < pre.size(); i++){
+        cout<<pre[i]<<" ";
+    }
+    cout<<endl;
+    for(int i = 0; i < post.size(); i++){
+        cout<<post[i]<<" ";
+    }
+}
