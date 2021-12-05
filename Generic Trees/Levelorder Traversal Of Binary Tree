@@ -1,0 +1,66 @@
+Levelorder Traversal Of Binary Tree
+
+Easy
+
+1. You are given a partially written BinaryTree class.
+2. You are required to complete the body of levelorder function.
+The function is expected to print tree level by level, left to right. Each level must be on a separate line and elements of same level should be separated by space
+
+#include<iostream>
+#include<string.h>
+#include<vector>
+#include<queue>
+
+using namespace std;
+class Node{
+public:
+  int data;
+  Node* left = nullptr;
+  Node* right = nullptr;
+  Node(int data){
+    this->data = data;
+  }
+};
+
+void levelOrder2(Node* node){
+
+  queue<Node*>mq;
+  mq.push(node);
+
+  while(!mq.empty()){
+    int k = mq.size();
+    for(int i = 0; i < k; i++){
+        cout<<mq.front()->data<<" ";
+
+        if(mq.front()->left)mq.push(mq.front()->left);
+        if(mq.front()->right)mq.push(mq.front()->right);
+        
+        mq.pop();        
+    }
+    cout<<endl;
+  }
+}
+
+
+void levelOrder(Node* node) {
+
+    queue<Node*> mq;
+    queue<Node*> cq;
+
+    mq.push(node);
+
+    while( !mq.empty()  ){
+        cout<<mq.front()->data<<" ";
+        if(mq.front()->left)  cq.push(mq.front()->left);
+        if(mq.front()->right) cq.push(mq.front()->right);
+
+        mq.pop();
+        if(mq.empty()){
+            cout<<endl;
+            mq = cq;
+            while(!cq.empty() ){
+                cq.pop();
+            }
+        }
+    }    
+}
